@@ -12,7 +12,7 @@ public class LoginServiceImpl implements LoginService{
 @Autowired
 LoginDao loginDao;
 	@Override
-	public LoginPojo validateBuyerSignup(LoginPojo loginPojo) {
+	public LoginPojo checkUser(LoginPojo loginPojo) {
 		// TODO Auto-generated method stub
 		LoginEntity loginEntity = loginDao.findByUsernameAndPassword(loginPojo.getUsername(),
 				loginPojo.getPassword());

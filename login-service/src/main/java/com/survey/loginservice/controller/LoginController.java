@@ -17,7 +17,7 @@ import com.survey.loginservice.service.LoginService;
 		@Autowired
 		LoginService loginService;
 
-		@GetMapping("validate")
+		@GetMapping("check")
 		
 		//calling validateBuyer method 
 		
@@ -27,7 +27,7 @@ import com.survey.loginservice.service.LoginService;
 			LoginPojo loginPojo = new LoginPojo();
 			loginPojo.setUsername(token[0]);
 			loginPojo.setPassword(token[1]);
-			return loginService.validateBuyerSignup(loginPojo);
+			return loginService.checkUser(loginPojo);
 		}
 
 		
