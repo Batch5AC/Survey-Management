@@ -8,20 +8,22 @@ package com.survey.loginservice.controller;
 	import org.springframework.web.bind.annotation.RequestMapping;
 	import org.springframework.web.bind.annotation.RestController;
 
+import com.survey.loginservice.pojo.AdminDataPojo;
+import com.survey.loginservice.pojo.AdminLoginPojo;
 import com.survey.loginservice.pojo.LoginPojo;
 import com.survey.loginservice.service.LoginService;
 	@CrossOrigin
 	@RestController
-	@RequestMapping("user")
+	@RequestMapping("login")
 	public class LoginController {
 		@Autowired
 		LoginService loginService;
 
-		@GetMapping("check")
+		@GetMapping("user")
 		
-		//calling validateBuyer method 
 		
-		LoginPojo validateBuyerSignup(@RequestHeader("Authorization") String data) {
+		
+		LoginPojo checkUser(@RequestHeader("Authorization") String data) {
 			
 			String token[] = data.split(":");
 			LoginPojo loginPojo = new LoginPojo();
@@ -29,7 +31,15 @@ import com.survey.loginservice.service.LoginService;
 			loginPojo.setPassword(token[1]);
 			return loginService.checkUser(loginPojo);
 		}
-
+		@GetMapping("admin")
+		AdminDataPojo checkAdmin(@RequestHeader("Authorization") String data) {
+			
+			String token[] = data.split(":");
+			AdminLoginPojo adminLoginPojo = new AdminLoginPojo();
+			adminLoginPojo.setUsername(token[0]);
+			adminLoginPojo.setPassword(token[1]);
+			return loginService.checkAdmin(adminLoginPojo);
+		}
 		
 	}
 
