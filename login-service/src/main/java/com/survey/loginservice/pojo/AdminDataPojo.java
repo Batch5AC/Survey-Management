@@ -1,6 +1,6 @@
 package com.survey.loginservice.pojo;
 
-import javax.persistence.Column;
+
 
 public class AdminDataPojo {
 	private int inputid;
