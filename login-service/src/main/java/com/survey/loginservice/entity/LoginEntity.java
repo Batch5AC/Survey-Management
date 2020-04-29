@@ -8,11 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
     @Entity
-	@Table(name="user")
+	@Table(name="user_table")
 	public class LoginEntity {
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Column(name = "id")
+		@Column(name = "user_id")
 		private int id;
 		
 		@Column(name = "username")

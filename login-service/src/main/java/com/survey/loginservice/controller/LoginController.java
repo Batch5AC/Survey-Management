@@ -12,7 +12,7 @@ import com.survey.loginservice.pojo.LoginPojo;
 import com.survey.loginservice.service.LoginService;
 	@CrossOrigin
 	@RestController
-	@RequestMapping("survey/user")
+	@RequestMapping("user")
 	public class LoginController {
 		@Autowired
 		LoginService loginService;
@@ -25,19 +25,12 @@ import com.survey.loginservice.service.LoginService;
 			
 			String token[] = data.split(":");
 			LoginPojo loginPojo = new LoginPojo();
-			LoginPojo.setUsername(token[0]);
-			LoginPojo.setPassword(token[1]);
-			return LoginService.validateBuyerSignup(loginPojo);
+			loginPojo.setUsername(token[0]);
+			loginPojo.setPassword(token[1]);
+			return loginService.validateBuyerSignup(loginPojo);
 		}
 
-		//end point for retrieving an buyer
-		@GetMapping("buyer/{buyerId}")
-		LoginPojo getBuyer(@PathVariable("buyerId") Integer buyerId) {
-			
-			
-			return LoginService.getBuyer(buyerId);
-		}
-
+		
 	}
 
 
