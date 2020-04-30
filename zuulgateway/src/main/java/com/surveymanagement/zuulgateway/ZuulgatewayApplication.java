@@ -1,14 +1,13 @@
-package com.survey.inputservice;
+package com.surveymanagement.zuulgateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-
-public class InputServiceApplication {
+public class ZuulgatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(InputServiceApplication.class, args);
+		SpringApplication.run(ZuulgatewayApplication.class, args);
 	}
 
 }
