@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,14 @@ import com.survey.loginservice.dao.LoginDao;
 import com.survey.loginservice.entity.AdminDataEntity;
 import com.survey.loginservice.entity.AdminLoginEntity;
 import com.survey.loginservice.entity.LoginEntity;
+import com.survey.loginservice.exceptions.AdminNotFoundException;
 import com.survey.loginservice.pojo.AdminDataPojo;
 import com.survey.loginservice.pojo.AdminLoginPojo;
 import com.survey.loginservice.pojo.LoginPojo;
 @Service
 
 public class LoginServiceImpl implements LoginService{
+	static Logger LOG = Logger.getLogger(LoginServiceImpl.class.getClass());
 @Autowired
 LoginDao loginDao;
 @Autowired
@@ -27,7 +31,11 @@ AdminLoginDao adminLoginDao;
 AdminDataDao adminDataDao;
 	@Override
 	public LoginPojo checkUser(LoginPojo loginPojo) {
+		
 		// TODO Auto-generated method stub
+		LOG.info("Entered checkUser() service");
+
+
 		LoginEntity loginEntity = loginDao.findByUsernameAndPassword(loginPojo.getUsername(),
 				loginPojo.getPassword());
 		
@@ -36,14 +44,20 @@ AdminDataDao adminDataDao;
 		if (loginEntity!= null) {
 			loginPojo = new LoginPojo(loginEntity.getId(), loginEntity.getUsername(),
 					null);
+			
+			LOG.info("Exited checkUser() service");
+			BasicConfigurator.resetConfiguration();
 			return loginPojo;
 	}
+		else {
+			throw new AdminNotFoundException(loginPojo.getUsername());
+		}
 
-	return null;
-
+	
 }
 	@Override
 	public List<AdminDataPojo> checkAdmin(AdminLoginPojo adminLoginPojo) {
+		LOG.info("Entered checkAdmin() service");
 		AdminLoginEntity adminLoginEntity = adminLoginDao.findByUsernameAndPassword(adminLoginPojo.getUsername(),
 				adminLoginPojo.getPassword());
 	
@@ -61,11 +75,16 @@ AdminDataDao adminDataDao;
 			
 			
 			}
-		
+			
+			LOG.info("Exited checkAdmin() service");
+			BasicConfigurator.resetConfiguration();
 		return allAdminDataPojo;
 		
 		}
 		
-		return null;
+		else {
+			throw new AdminNotFoundException(adminLoginPojo.getUsername());
+		}
+		
 	}
 }

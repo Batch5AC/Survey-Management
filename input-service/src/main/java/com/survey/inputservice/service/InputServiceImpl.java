@@ -1,5 +1,7 @@
 package com.survey.inputservice.service;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +13,14 @@ import com.survey.inputservice.pojo.InputPojo;
 @Service
 public class InputServiceImpl implements InputService {
 	
-	//static Logger LOG = Logger.getLogger(SellerSignupServiceImpl.class.getClass());
+	static Logger LOG = Logger.getLogger(InputServiceImpl.class.getClass());
 	
 	@Autowired
 	InputDao inputDao;
 
 	@Override
 	public InputPojo addInput(InputPojo inputPojo) {
-		//LOG.info("entered addBuyer()");
+		LOG.info("entered addInput()");
 		InputEntity inputEntity = new InputEntity(inputPojo.getInputid(),
 			                                      inputPojo.getUserid(),
 				                                  inputPojo.getQuestion1(),
@@ -28,7 +30,8 @@ public class InputServiceImpl implements InputService {
 			                                      inputPojo.getQuestion5(),
 			                                     inputPojo.getQuestion6());
 		inputDao.save(inputEntity);
-		//LOG.info("Exited addBuyer()");
+		LOG.info("Exited addInput()");
+		BasicConfigurator.resetConfiguration();
 		return inputPojo;
 	}
 

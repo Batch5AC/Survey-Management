@@ -10,5 +10,7 @@ import com.survey.inputservice.entity.InputEntity;
 @Repository
 
 public interface InputDao extends JpaRepository<InputEntity,Integer> {
+	//InputEntity findByUserid(int userid);
 
+	
 }
