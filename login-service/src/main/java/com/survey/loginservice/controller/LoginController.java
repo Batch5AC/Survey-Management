@@ -5,7 +5,8 @@ package com.survey.loginservice.controller;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-	import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 	import org.springframework.web.bind.annotation.GetMapping;
 	import org.springframework.web.bind.annotation.PathVariable;
 	import org.springframework.web.bind.annotation.RequestHeader;
@@ -29,7 +30,7 @@ import com.survey.loginservice.service.LoginService;
 		//@RequestMapping(method = RequestMethod.GET, value ="user")
 		@GetMapping("user")
 		
-		LoginPojo checkUser(@RequestHeader("Authorization") String data) {
+		public ResponseEntity<LoginPojo> checkUser(@RequestHeader("Authorization") String data) {
 			BasicConfigurator.configure();
 			LOG.info("Entered end point \'login/user \' ");
 			
@@ -38,17 +39,18 @@ import com.survey.loginservice.service.LoginService;
 			loginPojo.setUsername(token[0]);
 			loginPojo.setPassword(token[1]);
 			LOG.info("Exited end point \'login/user \' ");
-			return loginService.checkUser(loginPojo);
+			return this.loginService.checkUser(loginPojo);
 		}
 		@GetMapping("admin")
-		List<AdminDataPojo> checkAdmin(@RequestHeader("Authorization") String data) {
+		public ResponseEntity<List<AdminDataPojo>>checkAdmin(@RequestHeader("Authorization") String data) {
+		//List<AdminDataPojo> checkAdmin(@RequestHeader("Authorization") String data) {
 			LOG.info("Entered end point \'login/admin \' ");
 			String token[] = data.split(":");
 			AdminLoginPojo adminLoginPojo = new AdminLoginPojo();
 			adminLoginPojo.setUsername(token[0]);
 			adminLoginPojo.setPassword(token[1]);
 			LOG.info("Exited end point \'login/admin \' ");
-			return loginService.checkAdmin(adminLoginPojo);
+			return this.loginService.checkAdmin(adminLoginPojo);
 		}
 		
 	}

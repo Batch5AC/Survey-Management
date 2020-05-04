@@ -3,6 +3,8 @@ package com.survey.inputservice.service;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.survey.inputservice.dao.InputDao;
@@ -19,7 +21,7 @@ public class InputServiceImpl implements InputService {
 	InputDao inputDao;
 
 	@Override
-	public InputPojo addInput(InputPojo inputPojo) {
+	public ResponseEntity<InputPojo> addInput(InputPojo inputPojo) {
 		LOG.info("entered addInput()");
 		InputEntity inputEntity = new InputEntity(inputPojo.getInputid(),
 			                                      inputPojo.getUserid(),
@@ -30,9 +32,11 @@ public class InputServiceImpl implements InputService {
 			                                      inputPojo.getQuestion5(),
 			                                     inputPojo.getQuestion6());
 		inputDao.save(inputEntity);
+		ResponseEntity<InputPojo> result= new ResponseEntity<InputPojo>(inputPojo,HttpStatus.OK);
 		LOG.info("Exited addInput()");
 		BasicConfigurator.resetConfiguration();
-		return inputPojo;
+		
+		return result;
 	}
 
 }

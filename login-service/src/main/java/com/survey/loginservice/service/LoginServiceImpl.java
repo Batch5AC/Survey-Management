@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.survey.loginservice.dao.AdminDataDao;
@@ -30,7 +32,7 @@ AdminLoginDao adminLoginDao;
 @Autowired
 AdminDataDao adminDataDao;
 	@Override
-	public LoginPojo checkUser(LoginPojo loginPojo) {
+public ResponseEntity<LoginPojo> checkUser(LoginPojo loginPojo) {
 		
 		// TODO Auto-generated method stub
 		LOG.info("Entered checkUser() service");
@@ -44,10 +46,10 @@ AdminDataDao adminDataDao;
 		if (loginEntity!= null) {
 			loginPojo = new LoginPojo(loginEntity.getId(), loginEntity.getUsername(),
 					null);
-			
+		ResponseEntity<LoginPojo> result= new ResponseEntity<LoginPojo>(loginPojo,HttpStatus.OK);
 			LOG.info("Exited checkUser() service");
 			BasicConfigurator.resetConfiguration();
-			return loginPojo;
+			return result;
 	}
 		else {
 			throw new AdminNotFoundException(loginPojo.getUsername());
@@ -56,7 +58,7 @@ AdminDataDao adminDataDao;
 	
 }
 	@Override
-	public List<AdminDataPojo> checkAdmin(AdminLoginPojo adminLoginPojo) {
+	public ResponseEntity<List<AdminDataPojo>> checkAdmin(AdminLoginPojo adminLoginPojo) {
 		LOG.info("Entered checkAdmin() service");
 		AdminLoginEntity adminLoginEntity = adminLoginDao.findByUsernameAndPassword(adminLoginPojo.getUsername(),
 				adminLoginPojo.getPassword());
@@ -78,7 +80,8 @@ AdminDataDao adminDataDao;
 			
 			LOG.info("Exited checkAdmin() service");
 			BasicConfigurator.resetConfiguration();
-		return allAdminDataPojo;
+			ResponseEntity<List<AdminDataPojo>> alldata=new ResponseEntity<List<AdminDataPojo>>(allAdminDataPojo,HttpStatus.OK);
+		return alldata;
 		
 		}
 		

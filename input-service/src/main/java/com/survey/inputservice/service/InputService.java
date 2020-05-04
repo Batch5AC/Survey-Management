@@ -1,9 +1,11 @@
 package com.survey.inputservice.service;
 
+import org.springframework.http.ResponseEntity;
+
 import com.survey.inputservice.pojo.InputPojo;
 
 public interface InputService {
 
-	InputPojo addInput(InputPojo inputPojo);
+	ResponseEntity<InputPojo> addInput(InputPojo inputPojo);
 	
 }

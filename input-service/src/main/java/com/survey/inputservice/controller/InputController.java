@@ -3,6 +3,7 @@ package com.survey.inputservice.controller;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,13 +24,13 @@ public class InputController {
 	
 	@PostMapping("input")
 
-	InputPojo addInput(@RequestBody InputPojo inputPojo)
+	ResponseEntity<InputPojo> addInput(@RequestBody InputPojo inputPojo)
 	{
 		BasicConfigurator.configure();
 		LOG.info("entered controller addInput()");
 
 		LOG.info("exited controller addInput()");
-		return inputService.addInput(inputPojo);
+		return this.inputService.addInput(inputPojo);
 	}
 	
 	
