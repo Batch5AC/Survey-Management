@@ -3,7 +3,7 @@ package com.surveymanagement.zuulgateway.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.exception.ZuulException;
 
-public class SimpleFilter extends ZuulFilter{
+public class SimpleFilter extends ZuulFilter {
 
 	@Override
 	public boolean shouldFilter() {

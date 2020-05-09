@@ -1,8 +1,6 @@
 package com.survey.questionservice.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,34 +9,31 @@ import com.survey.questionservice.Pojo.QuestionPojo;
 import com.survey.questionservice.dao.QuestionDao;
 import com.survey.questionservice.entity.QuestionEntity;
 
-
 @Service
 public class QuestionServiceImpl implements QuestionService {
-	
-	
-	 @Autowired
-     QuestionDao queDao;
-	
-	
+
+	@Autowired
+	QuestionDao queDao;
 
 	@Override
-	public List<QuestionPojo> getQuestions() {
+	// Returning the questions using this method
+	public QuestionPojo getQuestions() {
 		// TODO Auto-generated method stub
-		
-		
-		List<QuestionPojo> allquePojo= new ArrayList();
-		Iterable<QuestionEntity> allqueEntity = queDao.findAll();
-		Iterator itr= (Iterator) allqueEntity.iterator();
-		while(itr.hasNext()) {
-			QuestionEntity queEntity = (QuestionEntity) itr.next();
-			QuestionPojo quePojo = new QuestionPojo(queEntity.getqId(),queEntity.getQuestion());
-					allquePojo.add(quePojo);
+
+		Optional result = queDao.findById(1);
+		System.out.println(result);
+		if (result.isPresent()) {
+			QuestionEntity queEntity = (QuestionEntity) result.get();
+			System.out.println(queEntity);
+			QuestionPojo quePojo = new QuestionPojo(queEntity.getqId(), queEntity.getQuestion1(),
+					queEntity.getQuestion2(), queEntity.getQuestion3(), queEntity.getQuestion4(),
+					queEntity.getQuestion5(), queEntity.getQuestion6());
+
+			// TODO Auto-generated method stub
+			return quePojo;
+
 		}
-		
-		
-		// TODO Auto-generated method stub
-		return allquePojo;
-	
+		return null;
 	}
 
 }

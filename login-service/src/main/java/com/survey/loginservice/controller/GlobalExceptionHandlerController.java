@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.survey.loginservice.exceptions.AdminNotFoundException;
 
 @ControllerAdvice
-	public class GlobalExceptionHandlerController {
-		@SuppressWarnings("unchecked")
-		@ResponseBody
-		@ExceptionHandler(AdminNotFoundException.class)
-		@ResponseStatus(HttpStatus.NOT_FOUND)
-		Map adminNotFoundHandler(AdminNotFoundException ex) {
-			Map  map=new HashMap();
-			map.put("error Code",HttpStatus.NOT_FOUND );
-			map.put("errorMessage", ex.getMessage());
-			map.put("errorDate", new Date());
-			return map;
-			
-		}
-		}
+public class GlobalExceptionHandlerController {
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	
+	//Handling exception if user not found
+	@ExceptionHandler(AdminNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	Map adminNotFoundHandler(AdminNotFoundException ex) {
+		Map map = new HashMap();
+		map.put("error Code", HttpStatus.NOT_FOUND);
+		map.put("errorMessage", ex.getMessage());
+		map.put("errorDate", new Date());
+		return map;
 
-
+	}
+}

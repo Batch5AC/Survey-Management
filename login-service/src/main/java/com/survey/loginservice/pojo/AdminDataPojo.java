@@ -1,14 +1,9 @@
 package com.survey.loginservice.pojo;
 
-
-
 public class AdminDataPojo {
 	private int inputid;
-	
-	
+
 	private int userid;
-
-
 
 	private int question1;
 

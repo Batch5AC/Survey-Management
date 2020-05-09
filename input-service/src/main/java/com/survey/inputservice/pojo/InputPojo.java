@@ -1,7 +1,7 @@
 package com.survey.inputservice.pojo;
 
 public class InputPojo {
-private int inputid;
+	private int inputid;
 
 	private int userid;
 
@@ -14,7 +14,7 @@ private int inputid;
 	private int question4;
 
 	private int question5;
-	 
+
 	private int question6;
 
 	public InputPojo() {
@@ -105,5 +105,5 @@ private int inputid;
 	public void setQuestion6(int question6) {
 		this.question6 = question6;
 	}
-	
+
 }
